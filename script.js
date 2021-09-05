@@ -16,39 +16,40 @@ function generatePassword() {
   var number = "1234567890";
   var special = "!@#$%^&*()?";
 
-  var passwordcharSet= window.prompt("Type in criteria you would like to apply separated by a comma: uppercase, lowercase, number, special, all");
-  
+  var passwordcharSet= window.prompt("Type in criteria you would like to apply (e.g. uns): uppercase = u, lowercase = l, number = n, special = s, all criteria = all");
+
   //Generate password
-  var charSet = "";
 
-  if (passwordcharSet === "uppercase") {
-    charSet = alphabet;
+  if(!passwordcharSet) { //uppercase default if left blank
+  var charSet = alphabet;
+  } else {
+    charSet = ""; //empty string if options entered
   }
 
-  if (passwordcharSet === "lowercase") {
-    charSet = alphabet.toLowerCase();
+  //finally figured out the selecting part!!!!
+  //if prompt string includes specified part of string, add string to charSet
+  //This method works, but you can write any word containing the specified letters and it will work, will need to change for real world app
+  //can change it to full word, but I feel that is too much typing
+
+  if (passwordcharSet.includes("u")) {
+    charSet += alphabet;
   }
 
-  if (passwordcharSet === "number") {
-    charSet = number;
+  if (passwordcharSet.includes("l")) {
+    charSet += alphabet.toLowerCase();
   }
 
-  if (passwordcharSet === "special") {
-    charSet = special;
+  if (passwordcharSet.includes("n")) {
+    charSet += number;
   }
 
-  //adds all datatypes together
+  if (passwordcharSet.includes("s")) {
+    charSet += special;
+  }
+
+  //all adds all the strings together
   if (passwordcharSet === "all") {
-    charSet = alphabet+number+special+alphabet.toLowerCase();
-  }
-
-  if (passwordcharSet !== "all") {
-    //function to add features by typing
-    var passwordValue = [];
-    for (let index = 0; index < passwordcharSet.length; index++) {
-      passwordValue = passwordcharSet[index];
-      charset = charset[index];
-    }
+  charSet += alphabet+number+special+alphabet.toLowerCase();
   }
 
   var text="";
